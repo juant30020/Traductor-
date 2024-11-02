@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor de Lenguaje Secreto</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        button { margin: 10px; padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Traductor de Lenguaje Secreto</h1>
+    <p>Escribe un mensaje en español y tradúcelo al lenguaje secreto, o viceversa.</p>
+    
+    <textarea id="inputText" placeholder="Escribe aquí el mensaje..."></textarea>
+    <br>
+    <button onclick="toSecret()">Traducir a Lenguaje Secreto</button>
+    <button onclick="toSpanish()">Traducir a Español</button>
+    
+    <textarea id="outputText" readonly placeholder="Aquí aparecerá la traducción..."></textarea>
+    
+    <script>
+        const secreto = {
+            "A": "@", "B": "8", "C": "(", "D": "|", "E": "3", "F": "#", "G": "6",
+            "H": "#", "I": "!", "J": ";", "K": "<", "L": "1", "M": "^", "N": "~",
+            "O": "0", "P": "?", "Q": "9", "R": "4", "S": "$", "T": "+", "U": "_",
+            "V": "/", "W": "%", "X": "*", "Y": "`", "Z": "2"
+        };
+
+        const español = Object.fromEntries(Object.entries(secreto).map(([k, v]) => [v, k]));
+
+        function toSecret() {
+            let texto = document.getElementById("inputText").value.toUpperCase();
+            let traducido = "";
+            for (let char of texto) {
+                traducido += secreto[char] || char;
+            }
+            document.getElementById("outputText").value = traducido;
+        }
+
+        function toSpanish() {
+            let texto = document.getElementById("inputText").value;
+            let traducido = "";
+            for (let char of texto) {
+                traducido += español[char] || char;
+            }
+            document.getElementById("outputText").value = traducido;
+        }
+    </script>
+</body>
+</html>
